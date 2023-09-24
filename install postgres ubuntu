@@ -1,0 +1,14 @@
+sudo apt update
+&& sudo apt install postgresql postgresql-contrib
+// sudo systemctl start postgresql.service
+
+// setup user
+sudo -i -u postgres
+psql
+
+// in #psql
+--
+-- CREATE USER username
+-- CONNECTION  LIMIT #
+-- LOGIN 
+-- PASSWORD 'testVal';
