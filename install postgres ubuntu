@@ -12,3 +12,7 @@ psql
 -- CONNECTION  LIMIT #
 -- LOGIN 
 -- PASSWORD 'testVal';
+
+
+// optionally init db from backed up schema
+pg_restore -v  -U <username> -d <database_name> -j 2 <dumpfilelocation.sql>
