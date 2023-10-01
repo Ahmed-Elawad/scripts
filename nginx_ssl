@@ -8,3 +8,24 @@ apt-get install python-certbot-nginx
 apt-get update &&
 sudo apt-get install certbot && 
 sudo apt-get install python3-certbot-nginx
+
+
+## create file with contents in /etc/nginx/conf.d
+echo 'server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    server_name example.com www.example.com;
+}' | sudo tee /etc/nginx/conf.d/server_name.com
+
+
+# restart nginx
+sudo nginx -t && nginx -s reload
+
+## Ensure the domain points to the instance public IP and the instance is configured for traffic from
+
+
+# run command to configure certs with letsencrypt ca
+sudo certbot --nginx -d example.com -d www.example.com
+
+## if running on node give node read to the files
