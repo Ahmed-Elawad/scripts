@@ -1,0 +1,10 @@
+## install libraries ubunto v < 16.04
+sudo apt-get update && 
+sudo apt-get install certbot && 
+apt-get install python-certbot-nginx 
+
+
+# With Ubuntu 18.04 and later, substitute the Python 3 version:
+apt-get update &&
+sudo apt-get install certbot && 
+sudo apt-get install python3-certbot-nginx
