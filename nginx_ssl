@@ -15,8 +15,8 @@ echo 'server {
     listen 80 default_server;
     listen [::]:80 default_server;
     root /var/www/html;
-    server_name example.com www.example.com;
-}' | sudo tee /etc/nginx/conf.d/server_name.com
+    server_name axb.services www.axb.services;
+}' | sudo tee /etc/nginx/conf.d/axb.services.conf
 
 
 # restart nginx
@@ -26,6 +26,36 @@ sudo nginx -t && nginx -s reload
 
 
 # run command to configure certs with letsencrypt ca
-sudo certbot --nginx -d example.com -d www.example.com
+sudo certbot --nginx -d axb.services -d www.axb.services
 
-## if running on node give node read to the files
+# final file contents for nginx server should be like this for starter server
+server {
+    listen 80;
+    listen [::]:80;
+    root /var/www/html;
+    server_name  axb.services www.axb.services;
+
+    listen 443 ssl; # managed by Certbot
+
+    # RSA certificate
+    ssl_certificate /etc/letsencrypt/live/service_name/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/service_name/privkey.pem; # managed by Certbot
+
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+
+    # Redirect non-https traffic to https
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    # handle requests to the base url
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
