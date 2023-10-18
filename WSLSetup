@@ -1,0 +1,70 @@
+INstall WSL
+Windows:
+Enable WSL by going to control panel > turn featurs on or off > find Windows sub system for Linux > check the bo > apply > reboot or do in terminial with no reboot
+
+[insert command] 
+Run WSL --install to install WSL with the default distribution package. See Microsoft Documentation for more information on installation and best practices.
+
+Node
+ Update and install curl sudo apt-get install curl
+
+ Get GIT:  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+
+ restart shell instance
+
+ Verify Node installation: nvm --version
+
+ Install LTS: nvm install --lts
+
+ Optional - use stable version: nvm use --lts
+
+  Expected output:
+  Now using node v14.15.1 (npm v6.14.8)
+node --version
+npm --version
+Linters:
+ nstall Eslint:  npm install -g eslint@6.8.0
+SSH
+ Setup new key pair:  ssh-keygen -t ed25519 -C "your_email@example.com" > visit this link for steps
+GIT:
+ **Should be standard on:  Linux/macos
+ GIT immersion lab: https://gitimmersion.com/
+ Varify version::  git --version > expected result: git version 2.25.1
+ **Config files ending:  git config --global core.autocrlf true && git config --global core.safecrlf true
+MySQL
+Install
+  sudo apt update
+ Install MySQL:  sudo apt install mysql-server
+ Confirm install version:  mysql --version prints (mysql  Ver 8.0.22-0ubuntu0.20.04.3 for Linux on x86_64 ((Ubuntu)))
+ Start the server:  sudo /etc/init.d/mysql start
+ Start the security script prompts: sudo mysql_secure_installation
+ Open MySQL:  sudo mysql
+ create user:  CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+ grant privileges:  GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+ Reload privileges:  FLUSH PRIVILEGES;
+ Loging back in:  mysql -u [username] -p
+PostgreSQL
+Install
+ sudo apt update
+ Install PostgreSQL & server:  sudo apt install postgresql postgresql-contrib
+ Confirm install:  psql --version
+ Check service status:  sudo service postgresql status -> 12/main (port 5432): down
+ Start postgres:  sudo service postgresql start -> [OK]
+ Set password for default user:  sudo passwd postgres
+ Restart Terminal process -> restart postgres instance:  sudo service postgresql start
+ Log IN:  sudo -u postgres psql
+ Create a role:  CREATE USER [user] WITH PASSWORD [password];
+ If neccesary:  Init cluster: pg_ctlcluster 12 main start
+MongoDB & Mongod
+Install
+  sudo apt update
+ Install latest MongoDB version:  sudo apt-get install mongodb
+ Check version:  mongod --version
+ Check status:  sudo service mongodb status
+ Start mongoDB:  sudo service mongodb start
+ Varify connection to database:  mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+Setup SFDX CLI X WSL
+npm install -g sfdx-cli
+
+setup a bundler
+ https://snipcart.com/blog/javascript-module-bundler
